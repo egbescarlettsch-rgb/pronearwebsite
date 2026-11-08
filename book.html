@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book - PRONEAR</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="site-nav" aria-label="Main navigation">
+
+        <div class="logo">PRONEAR</div>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul id="nav-menu" class="nav-menu">
+
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="book.html" class="active">Book</a></li>
+            <li><a href="enquiry.html">Enquiry</a></li>
+            <li><a href="contact.html">Contact</a></li>
+
+        </ul>
+
+    </nav>
+
+
+    <main>
+
+        <!-- Booking page header: sets the tone for the service selection journey. -->
+
+        <section class="book-header">
+
+            <p class="small-heading">BOOK WITH PRONEAR</p>
+
+            <h1>Find Your Beauty Service</h1>
+
+            <p>
+                Choose a service, select your preferred date and
+                request an appointment with a trusted beauty professional.
+            </p>
+
+        </section>
+
+
+        <!-- Service menu: lists the beauty treatments that can be booked through the platform. -->
+        <section class="book-services">
+
+            <h2 class="section-title">Choose Your Service</h2>
+
+            <div class="services-toolbar">
+                <div class="search-panel">
+                    <label class="search-label" for="service-search">Search services</label>
+                    <input type="search" id="service-search" placeholder="Search hair, makeup, nails..." aria-label="Search beauty services">
+                </div>
+
+                <div class="filter-panel">
+                    <label class="filter-label" for="service-filter">Filter by category</label>
+                    <select id="service-filter" aria-label="Filter services by category">
+                        <option value="all">All services</option>
+                        <option value="makeup">Makeup</option>
+                        <option value="nails">Nails</option>
+                        <option value="hair">Hair</option>
+                        <option value="lashes">Lashes</option>
+                        <option value="consultation">Consultation</option>
+                    </select>
+                </div>
+            </div>
+
+            <p id="service-results" class="service-results" aria-live="polite"></p>
+
+            <div class="services" id="services-container" aria-live="polite"></div>
+
+        </section>
+
+        <section class="gallery-section" aria-labelledby="gallery-title">
+            <div class="section-heading">
+                <p class="small-heading">BEAUTY GALLERY</p>
+                <h2 class="section-title" id="gallery-title">See the PRONEAR difference</h2>
+            </div>
+
+            <div class="gallery-grid">
+                <button class="gallery-item" type="button" data-gallery-image="images/hairimage.png" data-gallery-title="Hair glow-up" data-gallery-caption="Soft curls, a neat finish, and a fresh style that looks polished without trying too hard.">
+                    <img src="images/hairimage.png" alt="Hair glow-up">
+                    <span class="gallery-overlay">View</span>
+                </button>
+
+                <button class="gallery-item" type="button" data-gallery-image="images/makeupimage.png" data-gallery-title="Soft glam" data-gallery-caption="A clean, pretty makeup look with soft shimmer and a natural finish that still feels special.">
+                    <img src="images/makeupimage.png" alt="Soft glam">
+                    <span class="gallery-overlay">View</span>
+                </button>
+
+                <button class="gallery-item" type="button" data-gallery-image="images/nailimage.png" data-gallery-title="Nail look" data-gallery-caption="A simple but elegant manicure with a glossy finish that makes everything feel a little more put together.">
+                    <img src="images/nailimage.png" alt="Nail look">
+                    <span class="gallery-overlay">View</span>
+                </button>
+
+                <button class="gallery-item" type="button" data-gallery-image="images/skincaremage.png" data-gallery-title="Fresh skin" data-gallery-caption="A healthy glow and smooth finish that gives that rested, cared-for look we all love.">
+                    <img src="images/skincaremage.png" alt="Fresh skin">
+                    <span class="gallery-overlay">View</span>
+                </button>
+
+                <button class="gallery-item" type="button" data-gallery-image="images/tashaM.png" data-gallery-title="Beauty expert" data-gallery-caption="A local beauty pro finishing a look with care, detail, and the kind of touch that makes you feel confident.">
+                    <img src="images/tashaM.png" alt="Beauty expert">
+                    <span class="gallery-overlay">View</span>
+                </button>
+
+                <button class="gallery-item" type="button" data-gallery-image="images/zee.png" data-gallery-title="African-inspired look" data-gallery-caption="Bold liner, sharp detail, and a strong beauty statement that feels creative, confident, and made for a special occasion.">
+                    <img src="images/zee.png" alt="African-inspired look">
+                    <span class="gallery-overlay">View</span>
+                </button>
+            </div>
+        </section>
+
+        <div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true">
+            <div class="gallery-lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="gallery-lightbox-title">
+                <button type="button" class="close-gallery-lightbox" id="close-gallery-lightbox" aria-label="Close image">×</button>
+                <img id="gallery-lightbox-image" src="" alt="">
+                <div class="gallery-lightbox-body">
+                    <div class="gallery-lightbox-meta">
+                        <p class="gallery-lightbox-kicker">Featured look</p>
+                        <h3 id="gallery-lightbox-title">Beauty look</h3>
+                    </div>
+                    <p id="gallery-lightbox-caption"></p>
+                    <div class="gallery-lightbox-controls">
+                        <button type="button" class="gallery-lightbox-nav" id="prev-gallery-image" aria-label="Previous image">← Prev</button>
+                        <button type="button" class="gallery-lightbox-nav" id="next-gallery-image" aria-label="Next image">Next →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointment form: captures the visitor's service request and scheduling details. -->
+        <section class="booking-section" id="booking-form">
+
+            <h2 class="section-title">Book Your Appointment</h2>
+
+            <div class="booking-container">
+
+
+                <!-- INFORMATION -->
+
+                <div class="booking-info">
+
+                    <h3>How It Works</h3>
+
+                    <p>
+                        Booking your beauty appointment with PRONEAR
+                        is simple.
+                    </p>
+
+                    <p>
+                        Fill in your details and tell us which service
+                        you would like.
+                    </p>
+
+                    <p>
+                        Choose your preferred date, time and location.
+                    </p>
+
+                    <p>
+                        A beauty professional will contact you to
+                        confirm your appointment.
+                    </p>
+
+                </div>
+
+
+                <!-- FORM -->
+
+                <form class="booking-form">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                        required
+                    >
+
+
+                    <label for="service">
+                        Select a Service
+                    </label>
+
+                    <select id="service" name="service" required>
+
+                        <option value="">
+                            Choose a service
+                        </option>
+
+                        <option value="makeup">
+                            Professional Makeup
+                        </option>
+
+                        <option value="nails">
+                            Nail Bar
+                        </option>
+
+                        <option value="hair">
+                            Hair Styling & Wigs
+                        </option>
+
+                        <option value="lashes">
+                            Lash Extensions
+                        </option>
+
+                        <option value="consultation">
+                            Free Consultation
+                        </option>
+
+                    </select>
+
+
+                    <label for="date">
+                        Preferred Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        required
+                    >
+
+
+                    <label for="time">
+                        Preferred Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="time"
+                        name="time"
+                        required
+                    >
+
+
+                    <label for="location">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="e.g. Sandton"
+                        required
+                    >
+
+
+                    <label for="message">
+                        Additional Information
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="4"
+                        placeholder="Tell us anything we should know..."
+                    ></textarea>
+
+
+                    <button
+                        type="submit"
+                        class="button primary-btn"
+                    >
+                        Request Booking
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        
+
+        <section class="book-help">
+
+            <h2>Not sure what to book?</h2>
+
+            <p>
+                Our team can help you choose the right beauty
+                service for your needs.
+            </p>
+
+            <a href="contact.html" class="button secondary-btn">
+                Contact Us
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <div class="footer-logo">
+
+                <h2>PRONEAR</h2>
+
+                <p>
+                    Bringing beauty services closer to you.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="book.html">Book</a>
+                <a href="contact.html">Contact</a>
+
+            </div>
+
+        </div>
+
+
+        <p class="copyright">
+            &copy; 2026 PRONEAR Beauty. All rights reserved.
+        </p>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
