@@ -106,7 +106,7 @@
                 <div class="hero-circle yellow-circle"></div>
 
 
-                <div class="contact-message-box">
+                <a href="contact.html" class="contact-message-box contact-message-link" aria-label="Go to contact page">
 
                     <div class="message-icon">
                         ?
@@ -121,7 +121,7 @@
                         We are happy to help.
                     </p>
 
-                </div>
+                </a>
 
             </div>
 
@@ -272,7 +272,7 @@
 
                 <div class="booking-form">
 
-                    <form>
+                    <form aria-label="PRONEAR enquiry form">
 
 
                         <label for="name">
@@ -284,6 +284,8 @@
                             id="name"
                             name="name"
                             placeholder="Enter your full name"
+                            autocomplete="name"
+                            aria-required="true"
                             required
                         >
 
@@ -297,6 +299,8 @@
                             id="email"
                             name="email"
                             placeholder="Enter your email address"
+                            autocomplete="email"
+                            aria-required="true"
                             required
                         >
 
@@ -310,6 +314,8 @@
                             id="phone"
                             name="phone"
                             placeholder="Enter your phone number"
+                            autocomplete="tel"
+                            aria-required="false"
                         >
 
 
@@ -320,6 +326,7 @@
                         <select
                             id="enquiry-type"
                             name="enquiry-type"
+                            aria-required="true"
                             required
                         >
 
@@ -359,6 +366,7 @@
                             name="message"
                             rows="6"
                             placeholder="Tell us how we can help you..."
+                            aria-required="true"
                             required
                         ></textarea>
 
@@ -366,6 +374,7 @@
                         <button
                             type="submit"
                             class="small-btn"
+                            aria-label="Send your enquiry"
                         >
                             Send Enquiry
                         </button>
