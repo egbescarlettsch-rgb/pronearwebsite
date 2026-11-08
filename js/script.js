@@ -64,6 +64,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return label.replace(/\s+/g, ' ');
     };
 
+    const sendFormByEmail = (form) => {
+        const data = new FormData(form);
+        const name = (data.get('name') || '').toString().trim();
+        const email = (data.get('email') || '').toString().trim();
+        const phone = (data.get('phone') || '').toString().trim();
+        const subjectValue = (data.get('subject') || data.get('enquiry-type') || 'General enquiry').toString().trim();
+        const messageText = (data.get('message') || '').toString().trim();
+        const formattedSubject = subjectValue
+            .replace(/-/g, ' ')
+            .replace(/\b\w/g, (char) => char.toUpperCase());
+
+        const emailBody = [
+            'Name: ' + (name || 'Not provided'),
+            'Email: ' + (email || 'Not provided'),
+            'Phone: ' + (phone || 'Not provided'),
+            '',
+            'Message:',
+            messageText || 'No message provided.'
+        ].join('\n');
+
+        const mailtoLink = `mailto:hello@pronear.co.za?subject=${encodeURIComponent(`PRONEAR - ${formattedSubject} from ${name || 'Website visitor'}`)}&body=${encodeURIComponent(emailBody)}`;
+
+        window.location.href = mailtoLink;
+    };
+
     const validateField = (field) => {
         const value = field.value.trim();
         let message = '';
@@ -144,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 : 'Thank you! Your message has been sent successfully.';
 
             setFormFeedback(form, successMessage, 'success');
+            sendFormByEmail(form);
             form.reset();
             fields.forEach((field) => {
                 field.classList.remove('invalid');
