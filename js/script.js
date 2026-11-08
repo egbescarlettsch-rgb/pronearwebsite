@@ -59,9 +59,21 @@ document.addEventListener('DOMContentLoaded', () => {
         feedback.setAttribute('role', type === 'error' ? 'alert' : 'status');
     };
 
+    const minimumBudgetByService = {
+        makeup: 450,
+        nails: 200,
+        hair: 350,
+        lashes: 300,
+        consultation: 0
+    };
+
     const getFriendlyLabel = (field) => {
         const label = field.closest('label')?.textContent?.trim() || field.name || field.id || 'This field';
         return label.replace(/\s+/g, ' ');
+    };
+
+    const getMinimumBudgetForService = (serviceValue) => {
+        return minimumBudgetByService[serviceValue] ?? 0;
     };
 
     const sendFormByEmail = (form) => {
@@ -69,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = (data.get('name') || '').toString().trim();
         const email = (data.get('email') || '').toString().trim();
         const phone = (data.get('phone') || '').toString().trim();
+        const budget = (data.get('budget') || '').toString().trim();
         const subjectValue = (data.get('subject') || data.get('enquiry-type') || 'General enquiry').toString().trim();
         const messageText = (data.get('message') || '').toString().trim();
         const formattedSubject = subjectValue
@@ -79,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Name: ' + (name || 'Not provided'),
             'Email: ' + (email || 'Not provided'),
             'Phone: ' + (phone || 'Not provided'),
+            'Budget: ' + (budget ? `R${Number(budget).toLocaleString('en-ZA')}` : 'Not provided'),
             '',
             'Message:',
             messageText || 'No message provided.'
@@ -101,6 +115,15 @@ document.addEventListener('DOMContentLoaded', () => {
             message = 'Please enter a valid email address.';
         } else if (field.type === 'tel' && value && !/^[0-9+()\-\s]{9,15}$/.test(value)) {
             message = 'Please enter a valid phone number with at least 9 digits.';
+        } else if (field.type === 'number' && field.id === 'budget' && value) {
+            const selectedService = field.closest('form')?.querySelector('#service')?.value;
+            const minimumBudget = getMinimumBudgetForService(selectedService);
+            const parsedBudget = Number(value);
+
+            if (selectedService && minimumBudget > 0 && parsedBudget < minimumBudget) {
+                const serviceLabel = field.closest('form')?.querySelector(`#service option[value="${selectedService}"]`)?.textContent?.trim() || 'selected service';
+                message = `Your budget must be at least R${minimumBudget} for ${serviceLabel}.`;
+            }
         } else if (field.type === 'text' && field.id === 'name' && value.length < 2) {
             message = 'Please enter your full name.';
         } else if (field.id === 'location' && value.length < 2) {
@@ -145,6 +168,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+        const serviceField = form.querySelector('#service');
+        const budgetField = form.querySelector('#budget');
+
+        if (serviceField && budgetField) {
+            serviceField.addEventListener('change', () => {
+                if (budgetField.value) {
+                    validateField(budgetField);
+                }
+            });
+        }
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
